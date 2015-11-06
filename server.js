@@ -2,10 +2,9 @@
 Parties = new Mongo.Collection("parties");
 
 if (Meteor.isServer) {
-    Meteor.startup(function () {
+    Meteor.startup(() => {
         'use strict';
         if (Parties.find().count() === 0) {
-            var i;
             var parties = [
                 {
                     name: 'Dubstep-Free Zone',
@@ -18,7 +17,7 @@ if (Meteor.isServer) {
                     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia corporis repudiandae quo, magnam illum, illo porro sint, voluptatem enim quos amet quaerat saepe fuga eius ad repellendus sed natus ipsam!'
                 }
             ];
-            for (i = 0; i < parties.length; i += 1) {
+            for (let i = 0; i < parties.length; i += 1) {
                 Parties.insert(parties[i]);
             }
         }
