@@ -1,4 +1,11 @@
 /*globals angular*/
+angular.module('socially').run(function ($rootScope, $state) {
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        if (error === 'AUTH_REQUIRED') {
+            $state.go('parties');
+        }
+    });
+});
 angular.module('socially').config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
     'use strict';
     $locationProvider.html5Mode(true);
@@ -11,7 +18,12 @@ angular.module('socially').config(function ($urlRouterProvider, $stateProvider, 
         .state('partyDetails', {
             url: '/parties/:partyId',
             templateUrl: 'client/parties/views/party-details.ng.html',
-            controller: 'PartyDetailsCtrl'
+            controller: 'PartyDetailsCtrl',
+            resolve: {
+                currentUser: function ($meteor) {
+                    return $meteor.requireUser();
+                }
+            }
         });
     $urlRouterProvider.otherwise('/parties');
 });
