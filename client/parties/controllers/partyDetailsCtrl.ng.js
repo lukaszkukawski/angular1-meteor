@@ -1,7 +1,8 @@
-/*globals angular, Parties*/
+/*globals angular, Parties, Meteor*/
 angular.module('socially').controller('PartyDetailsCtrl', function ($scope, $stateParams, $meteor) {
     'use stict';
-    $scope.party = $meteor.object(Parties, $stateParams.partyId, false);
+    $scope.party = $meteor.object(Parties, $stateParams.partyId).subscribe('parties');
+    $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
 
     $scope.save = function () {
         $scope.party.save().then(function (id) {
