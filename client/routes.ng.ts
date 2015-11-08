@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 /*globals angular*/
 angular.module('socially').run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {

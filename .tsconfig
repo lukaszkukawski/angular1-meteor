@@ -1,5 +1,6 @@
  {
-    "target": "es5",
+    "isolatedModules" : false,
+    "target": "es6",
     "sourceMap": true,
     "noImplicitAny": true,
     "alwaysThrow": true

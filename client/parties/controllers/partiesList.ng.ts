@@ -1,5 +1,6 @@
+/// <reference path="../../../typings/tsd.d.ts" />
 /*globals angular, Parties*/
-angular.module('socially').controller('PartiesListCtrl', function ($scope, $meteor) {
+angular.module('socially').controller('PartiesListCtrl', ['$scope, $meteor', function($scope, $meteor) {
     'use strict';
     $scope.parties = $meteor.collection(Parties).subscribe('parties');
 
@@ -10,4 +11,4 @@ angular.module('socially').controller('PartiesListCtrl', function ($scope, $mete
     $scope.removeAll = function () {
         $scope.parties.remove();
     };
-});
+}]);

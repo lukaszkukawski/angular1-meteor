@@ -1,3 +1,4 @@
+/// <reference path="../../../typings/tsd.d.ts" />
 /*globals angular, Parties, Meteor*/
 angular.module('socially').controller('PartyDetailsCtrl', function ($scope, $stateParams, $meteor) {
     'use stict';

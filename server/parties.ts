@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 /*globals Meteor, Parties*/
 Meteor.publish('parties', function () {
     'use strict';

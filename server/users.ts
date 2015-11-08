@@ -1,3 +1,4 @@
+/// <reference path="../typings/tsd.d.ts" />
 /*globals Meteor*/
 Meteor.publish('users', function () {
     'use strict';
