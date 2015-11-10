@@ -1,6 +1,6 @@
 /*globals Meteor,angular, Mongo, Parties*/
 
-angular.module('socially', ['angular-meteor', 'ui.router']);
+angular.module('socially', ['angular-meteor', 'ui.router', 'angularUtils.directives.dirPagination']);
 
 function onReady() {
     'use strict';
