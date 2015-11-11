@@ -1,11 +1,13 @@
-/*globals angular, Parties, Counts*/
-angular.module('socially').controller('PartiesListCtrl', function ($scope, $meteor) {
+/*globals angular, Parties, Counts, Meteor*/
+angular.module('socially').controller('PartiesListCtrl', function ($scope, $meteor, $rootScope) {
     'use strict';
 
     $scope.page = 1;
     $scope.perPage = 3;
     $scope.sort = {name: 1};
     $scope.orderProperty = '1';
+
+    $scope.$meteorSubscribe('users');
 
     $scope.parties = $meteor.collection(function () {
         return Parties.find({}, {
@@ -39,18 +41,15 @@ angular.module('socially').controller('PartiesListCtrl', function ($scope, $mete
     };
 
     $scope.newParty = {
-        name: "",
-        owner: $scope.$root.currentUser._id,
-        description: "",
-        public: false
+        'name': "",
+        'description': "",
+        'public': false
     };
     $scope.addNewParty = function (e) {
         e.preventDefault();
         try {
-            //$scope.newParty.owner = $scope.$root.currentUser._id;
-            $scope.parties.save($scope.newParty);
-            $scope.newParty.name = "";
-            $scope.newParty.description = "";
+            $scope.newParty.owner = $scope.$root.currentUser._id;
+            $scope.parties.push($scope.newParty);
         } catch (error) {
             console.error(error);
         }
@@ -60,4 +59,23 @@ angular.module('socially').controller('PartiesListCtrl', function ($scope, $mete
     $scope.pageChanged = function (newPage) {
         $scope.page = newPage;
     };
+
+    $scope.getUserById = function (userId) {
+        return Meteor.users.findOne(userId);
+    };
+
+    $scope.creator = function (party) {
+        if (!party) {
+            return;
+        }
+        var owner = $scope.getUserById(party.owner);
+        if (!owner) {
+            return 'nobody';
+        }
+        if ($rootScope.currentUser && $rootScope.currentUser._id && owner._id === $rootScope.currentUser._id) {
+            return 'me';
+        }
+        return owner;
+    };
+
 });

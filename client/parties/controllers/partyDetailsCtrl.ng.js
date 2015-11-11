@@ -14,6 +14,7 @@ angular.module('socially').controller('PartyDetailsCtrl', function ($scope, $sta
     };
 
     $scope.reset = function () {
+        console.log("Reset party");
         $scope.party.reset();
     };
 });

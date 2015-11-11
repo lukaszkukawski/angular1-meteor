@@ -1,7 +1,7 @@
 /*globals Meteor, Parties*/
 Meteor.publish('parties', function (options, searchString) {
     'use strict';
-    if (searchString === null) {
+    if (searchString == null) {
         searchString = '';
     }
     Counts.publish(this, 'numberOfParties', Parties.find({
@@ -9,13 +9,13 @@ Meteor.publish('parties', function (options, searchString) {
         $or: [
             {
                 $and: [
-                    {public: true},
-                    {public: {$exists: true}}
+                    {'public': true},
+                    {'public': {$exists: true}}
                 ]},
             {
                 $and: [
-                    {owner: this.userId},
-                    {owner: {$exists: true}}
+                    {'owner': this.userId},
+                    {'owner': {$exists: true}}
                 ]
             }
         ]
@@ -25,14 +25,14 @@ Meteor.publish('parties', function (options, searchString) {
         $or: [
             {
                 $and: [
-                    {public: true},
-                    {public: {$exists: true}}
+                    {'public': true},
+                    {'public': {$exists: true}}
                 ]
             },
             {
                 $and: [
-                    {owner: this.userId},
-                    {owner: {$exists: true}}
+                    {'owner': this.userId},
+                    {'owner': {$exists: true}}
                 ]
             }
         ]
