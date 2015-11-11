@@ -1,11 +1,11 @@
- <form action="">
+ <form action="" ng-submit="addNewParty($event)">
         <label for="">Name</label>
         <input type="text" ng-model="newParty.name"/>
         <label for="">Description</label>
         <input type="text" ng-model="newParty.description" />
         <label>Public</label>
         <input type="checkbox" ng-model="newParty.public">
-        <button ng-click="addNewParty()">Add</button>
+        <button type="submit">Add</button>
         <button ng-click="removeAll()">Remove All</button>
     </form>
     <ul>

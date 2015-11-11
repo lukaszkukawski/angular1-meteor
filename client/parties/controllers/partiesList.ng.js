@@ -44,17 +44,18 @@ angular.module('socially').controller('PartiesListCtrl', function ($scope, $mete
         description: "",
         public: false
     };
-    $scope.addNewParty = function () {
-
+    $scope.addNewParty = function (e) {
+        e.preventDefault();
         try {
             //$scope.newParty.owner = $scope.$root.currentUser._id;
             $scope.parties.save($scope.newParty);
-        } catch (e) {
-            debugger
-            console.error(e);
+            $scope.newParty.name = "";
+            $scope.newParty.description = "";
+        } catch (error) {
+            console.error(error);
         }
         return false;
-    }
+    };
 
     $scope.pageChanged = function (newPage) {
         $scope.page = newPage;
