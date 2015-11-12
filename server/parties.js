@@ -17,6 +17,12 @@ Meteor.publish('parties', function (options, searchString) {
                     {'owner': this.userId},
                     {'owner': {$exists: true}}
                 ]
+            },
+            {
+                $and: [
+                    {'invited': this.userId},
+                    {'invited': {$exists: true}}
+                ]
             }
         ]
     }), {noReady: true});
@@ -33,6 +39,12 @@ Meteor.publish('parties', function (options, searchString) {
                 $and: [
                     {'owner': this.userId},
                     {'owner': {$exists: true}}
+                ]
+            },
+            {
+                $and: [
+                    {'invited': this.userId},
+                    {'invited': {$exists: true}}
                 ]
             }
         ]

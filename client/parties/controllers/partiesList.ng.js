@@ -1,4 +1,4 @@
-/*globals angular, Parties, Counts, Meteor*/
+/*globals angular, Parties, Counts, Meteor, _*/
 angular.module('socially').controller('PartiesListCtrl', function ($scope, $meteor, $rootScope) {
     'use strict';
 
@@ -7,7 +7,7 @@ angular.module('socially').controller('PartiesListCtrl', function ($scope, $mete
     $scope.sort = {name: 1};
     $scope.orderProperty = '1';
 
-    $scope.$meteorSubscribe('users');
+    $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
 
     $scope.parties = $meteor.collection(function () {
         return Parties.find({}, {
@@ -78,4 +78,19 @@ angular.module('socially').controller('PartiesListCtrl', function ($scope, $mete
         return owner;
     };
 
+    $scope.rsvp = function (partyId, rsvp) {
+        $meteor.call('rsvp', partyId, rsvp).then(
+            function (data) {
+                console.log('success responding', data);
+            },
+            function (err) {
+                console.log('failed', err);
+            }
+        );
+    };
+    $scope.outstandingInvitations = function (party) {
+        return _.filter($scope.users, function (user) {
+            return (_.contains(party.invited, user._id) && !_.findWhere(party.rsvps, {user: user._id}));
+        });
+    };
 });
