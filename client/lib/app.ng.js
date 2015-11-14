@@ -1,6 +1,6 @@
 /*globals Meteor,angular, Mongo, Parties*/
 
-angular.module('socially', ['angular-meteor', 'ui.router', 'angularUtils.directives.dirPagination', 'uiGmapgoogle-maps']);
+angular.module('socially', ['angular-meteor', 'ui.router', 'angularUtils.directives.dirPagination', 'uiGmapgoogle-maps', 'ui.bootstrap']);
 
 function onReady() {
     'use strict';

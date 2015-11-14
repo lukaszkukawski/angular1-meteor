@@ -3,8 +3,14 @@ angular.module('socially').controller('PartyDetailsCtrl', function ($scope, $sta
     'use stict';
     $scope.party = $meteor.object(Parties, $stateParams.partyId);
     $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
-    $scope.$meteorSubscribe('parties');
-
+    
+    var subscriptionHandle;
+    $meteor.subscribe('parties').then(function(handle) {
+      subscriptionHandle = handle;
+    });
+    $scope.$on('$destroy', function() {
+      subscriptionHandle.stop();
+    });
     $scope.save = function () {
         $scope.party.save().then(function (id) {
             console.log('save success doc affected ', id);
@@ -38,8 +44,8 @@ angular.module('socially').controller('PartyDetailsCtrl', function ($scope, $sta
 
     $scope.map = {
         center: {
-            latitude: 45,
-            longitude: -73
+            latitude: 52.2,
+            longitude: 21
         },
         zoom: 8,
         events: {
