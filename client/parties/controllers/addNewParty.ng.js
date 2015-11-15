@@ -1,10 +1,16 @@
 /*globals angular, Parties, Counts, Meteor, _*/
-angular.module("socially").controller("AddNewPartyCtrl", ['$scope', '$meteor', '$rootScope', '$state', '$modalInstance', 'parties', function ($scope, $meteor, $rootScope, $state, $modalInstance, parties) {
+angular.module("socially").controller("AddNewPartyCtrl", function ($scope, $meteor, $rootScope, $state, $mdDialog, parties) {
     'use strict';
+    $scope.newParty = {};
     $scope.addNewParty = function () {
-        $scope.newParty.owner = $rootScope.currentUser._id;
-        parties.push($scope.newParty);
-        $scope.newParty = '';
-        $modalInstance.close();
+        if ($scope.newParty.name) {
+            $scope.newParty.owner = $rootScope.currentUser._id;
+            parties.push($scope.newParty);
+            $scope.newParty = '';
+            $mdDialog.hide();
+        }
     };
-}]);
+    $scope.close = function () {
+        $mdDialog.hide();
+    };
+});
